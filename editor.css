@@ -1,0 +1,24 @@
+.wp-block-list--2-columns [contenteditable] {
+	columns: auto 2;
+}
+
+.wp-block-list--3-columns [contenteditable] {
+	columns: auto 3;
+}
+
+.wp-block-list--4-columns [contenteditable] {
+	columns: auto 4;
+}
+
+.wp-block-list--5-columns [contenteditable] {
+	columns: auto 5;
+}
+
+.wp-block-list--2-columns [contenteditable] li,
+.wp-block-list--3-columns [contenteditable] li,
+.wp-block-list--4-columns [contenteditable] li,
+.wp-block-list--5-columns [contenteditable] li {
+	-webkit-column-break-inside: avoid;
+	page-break-inside: avoid;
+	break-inside: avoid;
+}
