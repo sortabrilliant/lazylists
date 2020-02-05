@@ -1,3 +1,5 @@
-import addLayoutSettings from './add-layout-settings';
+import layoutSettings from './layout-settings';
+import sorting from './sorting';
 
-addLayoutSettings();
+layoutSettings();
+sorting();
