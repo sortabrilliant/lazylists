@@ -1,19 +1,25 @@
 /**
  * WordPress dependencies
  */
+import { __ } from '@wordpress/i18n';
 import { BlockControls } from '@wordpress/block-editor';
 import { Toolbar, ToolbarButton } from '@wordpress/components';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { addFilter } from '@wordpress/hooks';
 import { dispatch } from '@wordpress/data';
 
-const convertListItemsToArray = ( items ) => {
+/**
+ * Internal dependencies
+ */
+import { SortIcon } from './icons';
+
+const sortListItems = ( items, reverse = false ) => {
 	const parser = new DOMParser();
 	const list = parser
 		.parseFromString( items, 'text/html' )
 		.querySelector( 'ul, ol' );
 
-	return [ ...list.children ]
+	const sortedItems = [ ...list.children ]
 		.map( ( li ) => {
 			const hasChildUl = li.innerHTML.includes( '<ul>' );
 			const hasChildOl = li.innerHTML.includes( '<ol>' );
@@ -33,7 +39,7 @@ const convertListItemsToArray = ( items ) => {
 
 				return {
 					prefix: valueBeforeChildList,
-					items: convertListItemsToArray( li.innerHTML ),
+					items: sortListItems( li.innerHTML, reverse ),
 					type,
 				};
 			}
@@ -41,6 +47,12 @@ const convertListItemsToArray = ( items ) => {
 			return li.innerHTML;
 		} )
 		.sort();
+
+	if ( reverse ) {
+		return sortedItems.reverse();
+	}
+
+	return sortedItems;
 };
 
 const convertArrayToListItems = ( items ) =>
@@ -59,14 +71,22 @@ const convertArrayToListItems = ( items ) =>
 		.join( '' );
 
 const sortList = ( { clientId, attributes: { values } } ) => {
-	const sortedItems = convertListItemsToArray( `<ul>${ values }</ul>` );
+	const sortedItems = sortListItems( `<ul>${ values }</ul>` );
 
 	if ( ! sortedItems.length ) {
 		return;
 	}
 
+	let convertedItems = convertArrayToListItems( sortedItems );
+
+	if ( convertedItems === values ) {
+		convertedItems = convertArrayToListItems(
+			sortListItems( `<ul>${ values }</ul>`, true ),
+		);
+	}
+
 	dispatch( 'core/block-editor' ).updateBlockAttributes( clientId, {
-		values: convertArrayToListItems( sortedItems ),
+		values: convertedItems,
 	} );
 };
 
@@ -84,8 +104,8 @@ const addLayoutSettings = createHigherOrderComponent( ( BlockEdit ) => {
 				<BlockControls>
 					<Toolbar>
 						<ToolbarButton
-							icon="editor-unlink"
-							title="Sort"
+							icon={ SortIcon }
+							title={ __( 'Sort alphabetically', 'lazy-lists' ) }
 							onClick={ () => sortList( props ) }
 						/>
 					</Toolbar>
