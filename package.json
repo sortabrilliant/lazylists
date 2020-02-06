@@ -12,9 +12,15 @@
 		"start": "wp-scripts start"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^6.2.0"
-	},
-	"dependencies": {
-		"lodash": "^4.17.15"
+		"@wordpress/scripts": "^6.2.0",
+		"autoprefixer": "^9.7.4",
+		"classnames": "^2.2.6",
+		"css-loader": "^3.4.2",
+		"extract-loader": "^4.0.3",
+		"file-loader": "^5.0.2",
+		"lodash": "^4.17.15",
+		"node-sass": "^4.13.1",
+		"postcss-loader": "^3.0.0",
+		"sass-loader": "^8.0.2"
 	}
 }

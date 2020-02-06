@@ -1,0 +1,21 @@
+@for $i from 2 to 6 {
+	.wp-block-list--#{$i}-columns {
+		columns: auto #{$i};
+	}
+}
+
+@media ( max-width: 600px ) {
+	[class*='wp-block-list'][class*='columns']:not( .wp-block-list--show-columns-on-mobile ) {
+		columns: auto;
+	}
+}
+
+.wp-block-list--2-columns,
+.wp-block-list--3-columns,
+.wp-block-list--4-columns,
+.wp-block-list--5-columns {
+	li {
+		page-break-inside: avoid;
+		break-inside: avoid;
+	}
+}

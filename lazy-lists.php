@@ -29,7 +29,7 @@ add_action( 'enqueue_block_editor_assets', function () {
 
 	wp_enqueue_style(
 		'lazy-lists-editor-style',
-		plugins_url( 'editor.css', __FILE__ ),
+		plugins_url( 'build/css/editor.css', __FILE__ ),
 		[],
 		VERSION
 	);
@@ -42,7 +42,7 @@ add_action( 'enqueue_block_assets', function () {
 
 	wp_enqueue_style(
 		'lazy-lists-style',
-		plugins_url( 'style.css', __FILE__ ),
+		plugins_url( 'build/css/style.css', __FILE__ ),
 		[],
 		VERSION
 	);

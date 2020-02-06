@@ -1,0 +1,15 @@
+@for $i from 2 to 6 {
+	.wp-block-list--#{$i}-columns [contenteditable] {
+		columns: auto #{$i};
+	}
+}
+
+.wp-block-list--2-columns,
+.wp-block-list--3-columns,
+.wp-block-list--4-columns,
+.wp-block-list--5-columns {
+	[contenteditable] li {
+		page-break-inside: avoid;
+		break-inside: avoid;
+	}
+}

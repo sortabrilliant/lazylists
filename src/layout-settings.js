@@ -1,6 +1,7 @@
 /**
  * External dependencies
  */
+import classnames from 'classnames';
 import { assign } from 'lodash';
 
 /**
@@ -10,14 +11,14 @@ import { __ } from '@wordpress/i18n';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { addFilter } from '@wordpress/hooks';
 import { InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, RangeControl } from '@wordpress/components';
+import { PanelBody, RangeControl, ToggleControl } from '@wordpress/components';
 
 const addLayoutSettings = createHigherOrderComponent( ( BlockEdit ) => {
 	return ( props ) => {
 		const {
 			name,
 			isSelected,
-			attributes: { columns },
+			attributes: { columns, showColumnsOnMobile },
 			setAttributes,
 		} = props;
 
@@ -38,6 +39,18 @@ const addLayoutSettings = createHigherOrderComponent( ( BlockEdit ) => {
 							} }
 							min={ 1 }
 							max={ 5 }
+						/>
+						<ToggleControl
+							label={ __(
+								'Show columns on mobile',
+								'lazy-lists',
+							) }
+							checked={ showColumnsOnMobile }
+							onChange={ () =>
+								setAttributes( {
+									showColumnsOnMobile: ! showColumnsOnMobile,
+								} )
+							}
 						/>
 					</PanelBody>
 				</InspectorControls>
@@ -71,30 +84,37 @@ const addColumnsClassToEditor = createHigherOrderComponent(
 	'addColumnsClassToEditor',
 );
 
-const addColumnsAttribute = ( settings ) => {
+const addAttributes = ( settings ) => {
 	// If this is a valid block
 	if ( settings.name !== 'core/list' ) {
 		return settings;
 	}
 
-	// Use Lodash's assign to gracefully handle if attributes are undefined
 	settings.attributes = assign( settings.attributes, {
 		columns: {
 			type: 'number',
 			default: 1,
+		},
+		showColumnsOnMobile: {
+			type: 'boolean',
+			default: false,
 		},
 	} );
 
 	return settings;
 };
 
-const addColumnsProp = ( props, blockType, attributes ) => {
+const addProps = ( props, blockType, { columns, showColumnsOnMobile } ) => {
 	if ( blockType.name !== 'core/list' ) {
 		return props;
 	}
 
+	const className = classnames( `wp-block-list--${ columns }-columns`, {
+		'wp-block-list--show-columns-on-mobile': showColumnsOnMobile,
+	} );
+
 	return assign( props, {
-		class: `wp-block-list--${ attributes.columns }-columns`,
+		class: className,
 	} );
 };
 
@@ -114,12 +134,12 @@ export default () => {
 	addFilter(
 		'blocks.registerBlockType',
 		'sorta-brilliant/lazy-lists',
-		addColumnsAttribute,
+		addAttributes,
 	);
 
 	addFilter(
 		'blocks.getSaveContent.extraProps',
 		'sorta-brilliant/lazy-lists',
-		addColumnsProp,
+		addProps,
 	);
 };
