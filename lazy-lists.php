@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:     Lazy Lists
- * Description:     @todo
+ * Description:     Advanced list tools for WordPress. 
  * Version:         1.0.0
  * Author:          sorta brilliant
  * Author URI:      https://sortabrilliant.com/
