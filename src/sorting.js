@@ -13,6 +13,13 @@ import { dispatch } from '@wordpress/data';
  */
 import { SortIcon } from './icons';
 
+const removeHtmlTags = ( string ) => {
+	const div = document.createElement( 'div' );
+	div.innerHTML = string;
+
+	return div.innerText;
+};
+
 const sortListItems = ( items, reverse = false ) => {
 	const parser = new DOMParser();
 	const list = parser
@@ -46,7 +53,12 @@ const sortListItems = ( items, reverse = false ) => {
 
 			return li.innerHTML;
 		} )
-		.sort();
+		.sort( ( a, b ) =>
+			removeHtmlTags( a ).toUpperCase() <
+			removeHtmlTags( b ).toUpperCase()
+				? -1
+				: 1,
+		);
 
 	if ( reverse ) {
 		return sortedItems.reverse();
