@@ -1,7 +1,7 @@
 {
 	"name": "sortabrilliant-lazy-lists",
 	"version": "1.0.0",
-	"description": "@todo",
+	"description": "It's not being lazy, it's called being efficient.",
 	"author": "sorta brilliant",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
@@ -12,7 +12,7 @@
 		"start": "wp-scripts start"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^6.2.0",
+		"@wordpress/scripts": "^7.1.3",
 		"autoprefixer": "^9.7.4",
 		"classnames": "^2.2.6",
 		"css-loader": "^3.4.2",
