@@ -109,18 +109,16 @@ const addProps = ( props, blockType, { columns, showColumnsOnMobile } ) => {
 		return props;
 	}
 
-	if ( typeof props.className === 'undefined' || ! props.className ) {
-		return props;
-	}
-
 	const className = classnames( {
 		'wp-block-list--show-columns-on-mobile': showColumnsOnMobile,
 		[ `wp-block-list--${ columns }-columns` ]: Number( columns ) > 1,
 	} );
 
-	return assign( props, {
-		class: className,
-	} );
+	if ( ! className ) {
+		return props;
+	}
+
+	return assign( props, { className } );
 };
 
 export default () => {
