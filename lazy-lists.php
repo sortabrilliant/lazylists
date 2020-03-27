@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name:     Lazy Lists
- * Description:     Advanced list tools for WordPress. 
- * Version:         1.0.0
+ * Description:     Advanced list tools for WordPress.
+ * Version:         1.0.2
  * Author:          sorta brilliant
  * Author URI:      https://sortabrilliant.com/
  * License:         GPL-2.0-or-later
@@ -11,7 +11,7 @@
 
 namespace SortaBrilliant\LazyLists;
 
-const VERSION = '1.0.0';
+const VERSION = '1.0.2';
 
 add_action( 'enqueue_block_editor_assets', function () {
 	$asset_filepath = __DIR__ . '/build/index.asset.php';
