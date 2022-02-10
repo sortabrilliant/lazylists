@@ -19,7 +19,7 @@
 		"extract-loader": "^4.0.3",
 		"file-loader": "^5.0.2",
 		"lodash": "^4.17.15",
-		"node-sass": "^4.13.1",
+		"node-sass": "^7.0.0",
 		"postcss-loader": "^3.0.0",
 		"sass-loader": "^8.0.2"
 	}
